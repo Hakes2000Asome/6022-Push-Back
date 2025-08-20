@@ -1,1 +1,0 @@
-float reduce_negative_180_to_180;
