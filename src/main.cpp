@@ -4,7 +4,7 @@
 
 using namespace pros;
 
-
+//right motors
 Motor motor_front_right (20);
 Motor motor_middle_right (19);
 Motor motor_back_right (18);
@@ -15,6 +15,9 @@ Motor motor_front_left (13);
 Motor motor_middle_left (12);
 Motor motor_back_left (14);
 MotorGroup motor_group_left({-13, -12, -14});
+
+//intake motor
+Motor motor_intake (10);
  
 //inertial sensor
 Imu imu_sensor(1);
@@ -88,5 +91,15 @@ void opcontrol() {
 		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
 		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 		pros::delay(5);
+////////////********************////////////////
+		if (master.get_digital(DIGITAL_Y)) {
+			motor_intake.move(100);  // forward 
+		} 
+		else if (master.get_digital(DIGITAL_A)) {
+			motor_intake.move(-100); //backward
+		} 
+		else {
+			motor_intake.move(0);  
+		}
 	}
 }
