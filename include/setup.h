@@ -21,3 +21,6 @@ using namespace pros;
 
     //rotation sensor
     Rotation rotation_sensor;
+
+    //intakae motor
+    Motor motor_intake;

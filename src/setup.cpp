@@ -24,3 +24,6 @@ Controller master (E_CONTROLLER_MASTER);
 
 //rotation sensor
 Rotation rotation_sensor(2);
+
+//intakae motor
+Motor motor_intake(10);
