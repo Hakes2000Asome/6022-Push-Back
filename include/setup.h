@@ -1,6 +1,6 @@
 #include "api.h"
 using namespace pros;
-/*
+
 
     Motor motor_front_right;
     Motor motor_middle_right;
@@ -20,4 +20,4 @@ using namespace pros;
     Controller master;
 
     //rotation sensor
-    Rotation rotation_sensor;*/
+    Rotation rotation_sensor;
