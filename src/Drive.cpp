@@ -5,6 +5,7 @@
 #include "setup.h"
 double pi = 3.1415926535;
 
+
 float turn_p = 1;
 float turn_i = 1;
 float turning_threshold = 5;
@@ -19,10 +20,10 @@ int drive_distance(int distance){
     //while(distance)
     return 0;
 }
-/*
+
 int turn(int angle){
     while(abs(angle-imu_sensor.get_heading())>turning_threshold){
-        float delta_angle = 1; //reduce_negative_180_to_180(angle-imu_sensor.get_heading());
+        float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
         if(delta_angle < 0){
             //right forward( -delta_angle*p)
             //left reverse( delta_angle*p)
@@ -34,4 +35,4 @@ int turn(int angle){
     }
     return 0;
 }
-*/
+
