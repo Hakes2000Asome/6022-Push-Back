@@ -24,3 +24,7 @@ using namespace pros;
 
     //intakae motor
     Motor motor_intake;
+
+    //air
+    ADIDigitalOut ball_remover;
+

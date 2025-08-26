@@ -5,7 +5,7 @@ using namespace pros;
 Motor motor_front_right (20);
 Motor motor_middle_right (19);
 Motor motor_back_right (18);
-MotorGroup motor_group_right ({20, 19, 18});
+MotorGroup motor_group_riarght ({20, 19, 18});
 
 //left motors
 Motor motor_front_left (13);
@@ -27,3 +27,6 @@ Rotation rotation_sensor(2);
 
 //intakae motor
 Motor motor_intake(10);
+
+//air
+ADIDigitalOut ball_remover (A, 0);

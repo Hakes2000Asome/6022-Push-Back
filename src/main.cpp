@@ -67,18 +67,32 @@ void autonomous() {}
 void opcontrol() {
 
 	while (true) {
+
+		//drive
 		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
 		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
-		pros::delay(5);
-////////////********************////////////////
-		if (master.get_digital(DIGITAL_Y)) {
+	
+		//intake
+		if (master.get_digital(DIGITAL_R2)) {
 			motor_intake.move(100);  // forward 
 		} 
-		else if (master.get_digital(DIGITAL_A)) {
+		else if (master.get_digital(DIGITAL_R1)) {
 			motor_intake.move(-100); //backward
 		} 
 		else {
 			motor_intake.move(0);  
 		}
+
+		//ball remover
+		if (master.get_digital(DIGITAL_Y)) {
+			ball_remover.set(1);  // down 
+		} 
+	 	if (master.get_digital(DIGITAL_B)) {
+			ball_remover.set(0); //up
+		} 
+
+
+
+		pros::delay(5);
 	}
 }
