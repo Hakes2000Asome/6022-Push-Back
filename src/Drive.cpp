@@ -23,14 +23,14 @@ int drive_distance(int distance){
 
 int turn(int angle){
     while(abs(angle-imu_sensor.get_heading())>turning_threshold){
-        float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
+        float delta_angle = 1;//reduce_negative_180_to_180(angle-imu_sensor.get_heading());
         if(delta_angle < 0){
-            //right forward( -delta_angle*p)
-            //left reverse( delta_angle*p)
+            //motor_group_right(-delta_angle * turn_p);
+            //motor_group_left(delta_angle * turn_p);
         }
         if(delta_angle > 0){
-            //right reverse( -delta_angle*p)
-            //left forward( delta_angle*p)
+            //motor_group_right(-delta_angle * turn_p);
+           // motor_group_left(delta_angle * turn_p);
         }
     }
     return 0;

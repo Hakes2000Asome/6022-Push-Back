@@ -85,10 +85,10 @@ void opcontrol() {
 
 		//ball remover
 		if (master.get_digital(DIGITAL_Y)) {
-			ball_remover.set(1);  // down 
+			piston.set_value(true);  // down 
 		} 
 	 	if (master.get_digital(DIGITAL_B)) {
-			ball_remover.set(0); //up
+			piston.set_value(true); //up
 		} 
 
 
