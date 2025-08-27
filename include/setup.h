@@ -1,30 +1,29 @@
 #include "api.h"
 using namespace pros;
 
-/*
-    Motor motor_front_right;
-    Motor motor_middle_right;
-    Motor motor_back_right;
-    MotorGroup motor_group_right;
+
+    extern Motor motor_front_right;
+    extern Motor motor_middle_right;
+    extern Motor motor_back_right;
+    extern MotorGroup motor_group_right;
 
     //left motors
-    Motor motor_front_left;
-    Motor motor_middle_left;
-    Motor motor_back_left;
-    MotorGroup motor_group_left;
+    extern Motor motor_front_left;
+    extern Motor motor_middle_left;
+    extern Motor motor_back_left;
+    extern MotorGroup motor_group_left;
  
     //inertial sensor
-    Imu imu_sensor;
+    extern Imu imu_sensor;
 
     //controller
-    Controller master;
+    extern Controller master;
 
     //rotation sensor
-    Rotation rotation_sensor;
+    extern Rotation rotation_sensor;
 
     //intakae motor
-    Motor motor_intake;
+    extern Motor motor_intake;
 
     //air
-    ADIDigitalOut piston;
-*/
+    extern ADIDigitalOut piston;

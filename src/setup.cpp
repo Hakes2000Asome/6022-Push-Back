@@ -1,7 +1,7 @@
 #include "setup.h"
 #include "api.h"
 using namespace pros;
-/*
+
 //right motors
 Motor motor_front_right (20);
 Motor motor_middle_right (19);
@@ -30,4 +30,4 @@ Rotation rotation_sensor(2);
 Motor motor_intake(10);
 
 //air
-ADIDigitalOut piston (1);*/
+ADIDigitalOut piston (1);
