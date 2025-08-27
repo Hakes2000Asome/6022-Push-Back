@@ -22,7 +22,7 @@ int drive_distance(int distance){
 }
 
 int turn(int angle){
-    while(abs(angle-imu_sensor.get_heading())>turning_threshold){
+    while(abs(angle/*-imu_sensor.get_heading()*/)>turning_threshold){
         float delta_angle = 1;//reduce_negative_180_to_180(angle-imu_sensor.get_heading());
         if(delta_angle < 0){
             //motor_group_right(-delta_angle * turn_p);
