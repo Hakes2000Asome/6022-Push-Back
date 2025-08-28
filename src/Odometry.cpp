@@ -15,10 +15,10 @@ float current_y_pose(){
 float current_x_pose(){
     return xcurrent;
 }
-void trackposition(){/*
+void trackposition(){
     float ytravel =  (rotation_sensor.get_position()-previous) * wheel_ratio * cos(imu_sensor.get_heading());
     ycurrent = ytravel + ycurrent;
     float xtravel =  (rotation_sensor.get_position()-previous) * wheel_ratio * sin(imu_sensor.get_heading());
     xcurrent = xtravel + xcurrent;
-    previous = rotation_sensor.get_position();*/
+    previous = rotation_sensor.get_position();
 }
