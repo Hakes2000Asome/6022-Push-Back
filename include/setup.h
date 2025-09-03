@@ -1,7 +1,7 @@
 #include "api.h"
 using namespace pros;
 
-
+    //right motors
     extern Motor motor_front_right;
     extern Motor motor_middle_right;
     extern Motor motor_back_right;
@@ -27,3 +27,4 @@ using namespace pros;
 
     //air
     extern ADIDigitalOut piston;
+
