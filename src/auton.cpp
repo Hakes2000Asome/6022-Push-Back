@@ -21,14 +21,14 @@ void auton1(){
 
         if (drive_cord(auton_1_cord[num][1], auton_1_cord[num][2], auton_1_cord[num][3]) == 1){
             //add all actions that happen at a point here
-            /*
+            
             if (num == 0){
-            deploy ball removere
+            //deploy ball removere
             }
 
             if (num == 5){
-            move intake
-            }*/
+            //move intake
+            }
             num ++;
         }
 

@@ -21,9 +21,12 @@ using namespace pros;
 
     //rotation sensor
     extern Rotation rotation_sensor;
+    extern Rotation rotation2_sensor;
 
     //intakae motor
-    extern Motor motor_intake;
+    extern Motor intake;
+    extern Motor storage;
+    extern Motor top;
 
     //air
     extern ADIDigitalOut piston;

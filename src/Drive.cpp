@@ -21,7 +21,7 @@ int drive_cord(int x_cord, int y_cord, int heading){
     if ( sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold ){
         float delta_distance = (sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ));
         motor_group_left.move(delta_distance * drive_p);
-        motor_group_left.move(delta_distance * drive_p);
+        motor_group_right.move(delta_distance * drive_p);
         return 0;
     }
     else{

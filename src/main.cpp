@@ -18,10 +18,11 @@ using namespace pros;
    
 
 void initialize() {
-	imu_sensor.reset();
+	//imu_sensor.reset();
 	pros::lcd::initialize();
-	imu_sensor.tare_heading();
+	//imu_sensor.tare_heading();
 	rotation_sensor.reset_position();
+	rotation2_sensor.reset_position();
 }
 
 /**
@@ -70,47 +71,60 @@ void autonomous() {}
  */
 void opcontrol() {
 
+	
 	while(imu_sensor.is_calibrating() == 1){
     printf("imu_sensor is calibrating");
   	}
 	while (true) {
-/*
+
 		//drive
 		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
 		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
-	
-		//intake
-		if (master.get_digital(DIGITAL_R2)) {
-			motor_intake.move(100);  // forward 
-		} 
-		else if (master.get_digital(DIGITAL_R1)) {
-			motor_intake.move(-100); //backward
-		} 
-		else {
-			motor_intake.move(0);  
-		}
 
+		//intake
+		if (master.get_digital(DIGITAL_R1)) {
+			intake.move(127); 	//out
+			storage.move(127);	//out
+		} 
+		else if (master.get_digital(DIGITAL_R2)) {
+			intake.move(-127);	//in
+			storage.move(-127);	//in
+		} 
+		else if (master.get_digital(DIGITAL_L1)) {
+			intake.move(-127);	//in
+			storage.move(127);	//out
+			top.move(-127);		//top
+		}
+		else if (master.get_digital(DIGITAL_L2)){
+			intake.move(-127);	//in
+			storage.move(127);	//out
+			top.move(127);		//middle
+		}
+		else {
+			intake.move(0);  
+			storage.move(0);
+			top.move(0);
+		}
+ 
 		//ball remover
 		if (master.get_digital(DIGITAL_Y)) {
 			piston.set_value(true);  // down 
 		} 
 	 	if (master.get_digital(DIGITAL_B)) {
-			piston.set_value(true); //up
+			piston.set_value(false); //up
 		} 
-
-
-*/
-int wheel_diameter = 2.625;
-float wheel_ratio = (wheel_diameter*3.14159)/36000;
-		pros::lcd::clear_line(0);
-		pros::lcd::clear_line(1);
+		
+		int wheel_diameter = 2.625;
+		float wheel_ratio = (wheel_diameter*3.14159)/36000;
+		//pros::lcd::clear_line(0);
+		//pros::lcd::clear_line(1);
 		pros::lcd::clear_line(2);
 		pros::lcd::clear_line(3);
-		pros::lcd::print(0, "x: %d\n", current_x_pose());
-		pros::lcd::print(1, "y: %d\n", current_y_pose());
-		pros::lcd::print(2, (2*3*rotation_sensor.get_position())/36000);		
-		pros::lcd::print(3, "Heading: %f degrees\n", accurate_angle());
-		trackposition();
-		delay(50);
+		//pros::lcd::print(0, "x: %f", current_x_pose());
+		//pros::lcd::print(1, "y: %f", current_y_pose());
+		pros::lcd::print(2, "test: %d", (rotation2_sensor.get_position()));		
+		pros::lcd::print(3, "Heading: %f degrees\n", wheel_angle());
+		//trackposition();
+		delay(100);
 	}
 }
