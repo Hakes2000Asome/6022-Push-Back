@@ -3,6 +3,7 @@
 #include "api.h"
 #include "Odometry.h"
 #include "funtions.h"
+#include "Drive.h"
 
 using namespace pros;
 
@@ -18,9 +19,9 @@ using namespace pros;
    
 
 void initialize() {
-	//imu_sensor.reset();
+	imu_sensor.reset();
 	pros::lcd::initialize();
-	//imu_sensor.tare_heading();
+	imu_sensor.tare_heading();
 	rotation_sensor.reset_position();
 	rotation2_sensor.reset_position();
 }
@@ -78,8 +79,8 @@ void opcontrol() {
 	while (true) {
 
 		//drive
-		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
+		//motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
+		//motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 
 		//intake
 		if (master.get_digital(DIGITAL_R1)) {
@@ -108,23 +109,23 @@ void opcontrol() {
  
 		//ball remover
 		if (master.get_digital(DIGITAL_Y)) {
-			piston.set_value(true);  // down 
+			piston.set_value(true);  //down 
 		} 
 	 	if (master.get_digital(DIGITAL_B)) {
-			piston.set_value(false); //up
+			piston.set_value(false);  //up
 		} 
+		
 		
 		int wheel_diameter = 2.625;
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
-		//pros::lcd::clear_line(0);
-		//pros::lcd::clear_line(1);
+		pros::lcd::clear_line(0);
+		pros::lcd::clear_line(1);
 		pros::lcd::clear_line(2);
-		pros::lcd::clear_line(3);
-		//pros::lcd::print(0, "x: %f", current_x_pose());
-		//pros::lcd::print(1, "y: %f", current_y_pose());
-		pros::lcd::print(2, "test: %d", (rotation2_sensor.get_position()));		
-		pros::lcd::print(3, "Heading: %f degrees\n", wheel_angle());
-		//trackposition();
+		pros::lcd::print(0, "x: %f", current_x_pose());
+		pros::lcd::print(1, "y: %f", current_y_pose());
+		pros::lcd::print(2, "Heading: %f degrees\n", imu_sensor.get_heading());
+		trackposition();
+		drive_cord(0,5,90);
 		delay(100);
 	}
 }

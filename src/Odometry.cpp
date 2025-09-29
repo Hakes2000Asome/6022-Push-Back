@@ -27,9 +27,9 @@ float current_x_pose(){
 }
 
 void trackposition(){
-    float ytravel =  (rotation_sensor.get_position()-previous) * wheel_ratio * cos(0);
+    float ytravel =  -(rotation_sensor.get_position()-previous) * wheel_ratio * cos(imu_sensor.get_heading()*2*std::numbers::pi/360);
     ycurrent = ytravel + ycurrent;
-    float xtravel =  (rotation_sensor.get_position()-previous) * wheel_ratio * sin(0);
+    float xtravel =  -(rotation_sensor.get_position()-previous) * wheel_ratio * sin(imu_sensor.get_heading()*2*std::numbers::pi/360);
     xcurrent = xtravel + xcurrent;
     previous = rotation_sensor.get_position();
     delay(10);
