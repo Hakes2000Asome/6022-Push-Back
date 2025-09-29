@@ -18,7 +18,7 @@ MotorGroup motor_group_left({-13, -12, -14}, pros::v5::MotorGears::blue);
 Motor motor_conveyor (16);
  
 //inertial sensor
-Imu imu_sensor(1);
+Imu imu_sensor(10);
 
 //controller
 Controller master (E_CONTROLLER_MASTER);

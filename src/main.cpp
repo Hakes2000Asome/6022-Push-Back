@@ -4,6 +4,7 @@
 #include "Odometry.h"
 #include "funtions.h"
 
+
 using namespace pros;
 
 
@@ -69,7 +70,10 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-
+	imu_sensor.reset();
+	pros::lcd::initialize();
+	imu_sensor.tare_heading();
+	rotation_sensor.reset_position();
 	while(imu_sensor.is_calibrating() == 1){
     printf("imu_sensor is calibrating");
   	}
@@ -106,11 +110,12 @@ float wheel_ratio = (wheel_diameter*3.14159)/36000;
 		pros::lcd::clear_line(1);
 		pros::lcd::clear_line(2);
 		pros::lcd::clear_line(3);
-		pros::lcd::print(0, "x: %d\n", current_x_pose());
-		pros::lcd::print(1, "y: %d\n", current_y_pose());
-		pros::lcd::print(2, (2*3*rotation_sensor.get_position())/36000);		
-		pros::lcd::print(3, "Heading: %f degrees\n", accurate_angle());
-		trackposition();
+		pros::lcd::print(0, "Pi: %.4f", accurate_angle());
+		// pros::lcd::print(0, "x: %d\n", current_x_pose());
+		// pros::lcd::print(1, "y: %d\n", current_y_pose());
+		// pros::lcd::print(2, "test: %d", (2*3*rotation_sensor.get_position())/36000);		
+		// pros::lcd::print(3, "Heading: %f degrees\n", accurate_angle());
+		// //trackposition();
 		delay(50);
 	}
 }

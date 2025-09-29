@@ -33,16 +33,10 @@ int drive_cord(int x_cord, int y_cord, int heading){
 }
 
 int turn(int angle){
-    if (abs(angle-accurate_angle())>turning_threshold){
-        float delta_angle = reduce_negative_180_to_180(angle-accurate_angle());
-        if(delta_angle < 0){
-            motor_group_right.move(-delta_angle * turn_p);
-            motor_group_left.move(delta_angle * turn_p);
-        }
-        if(delta_angle > 0){
-            motor_group_right.move(-delta_angle * turn_p);
-            motor_group_left.move(delta_angle * turn_p);
-        }
+    if (abs(angle-imu_sensor.get_heading())>turning_threshold){
+        float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
+        motor_group_right.move(-delta_angle * turn_p);
+        motor_group_left.move(delta_angle * turn_p);
         return 0;
     }
     else{
@@ -51,8 +45,8 @@ int turn(int angle){
 }
 
 int turn2(int angle){
-    if (abs(angle-accurate_angle())>turning_threshold){
-        float delta_angle = reduce_negative_180_to_180(angle-accurate_angle());
+    if (abs(angle-imu_sensor.get_heading())>turning_threshold){
+        float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
         if(delta_angle < 0){
             motor_group_right.move(-delta_angle * turn_p);
             motor_group_left.move(delta_angle * turn_p);
