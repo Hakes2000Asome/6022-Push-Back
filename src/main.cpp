@@ -4,6 +4,7 @@
 #include "Odometry.h"
 #include "funtions.h"
 #include "Drive.h"
+#include "auton.h"
 
 using namespace pros;
 
@@ -20,7 +21,7 @@ using namespace pros;
 
 void initialize() {
 	imu_sensor.reset();
-	pros::lcd::initialize();
+    pros::lcd::initialize();
 	imu_sensor.tare_heading();
 	rotation_sensor.reset_position();
 	rotation2_sensor.reset_position();
@@ -118,14 +119,10 @@ void opcontrol() {
 		
 		int wheel_diameter = 2.625;
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
-		pros::lcd::clear_line(0);
-		pros::lcd::clear_line(1);
-		pros::lcd::clear_line(2);
-		pros::lcd::print(0, "x: %f", current_x_pose());
-		pros::lcd::print(1, "y: %f", current_y_pose());
-		pros::lcd::print(2, "Heading: %f degrees\n", imu_sensor.get_heading());
+
 		trackposition();
-		drive_cord(0,5,90);
+		//drive_cord(10,10,90);
+		auton1();
 		delay(100);
 	}
 }
