@@ -30,4 +30,4 @@ Motor storage(20);
 Motor top(10);
 
 //air
-ADIDigitalOut piston (1);
+ADIDigitalOut piston (8);

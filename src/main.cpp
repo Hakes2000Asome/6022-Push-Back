@@ -121,7 +121,7 @@ void opcontrol() {
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
 
 		trackposition();
-		//drive_cord(10,10,90);
+		//drive_cord(0,0,0);
 		auton1();
 		delay(100);
 	}

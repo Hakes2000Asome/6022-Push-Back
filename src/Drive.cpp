@@ -7,45 +7,43 @@
 double pi = 3.1415926535;
 
 
-float turn_p = 2;
+float turn_p = 2.5;
 float turn_i = 1;
 float turning_threshold = 3;
 
 float drive_p = 5;
-float drive_threshold = 2;
+float drive_slowdown = 5;
+float drive_threshold = 4;
 bool first_turn = 0;
 
+void first(bool input){
+    first_turn = input;
+}
 int drive_cord(int x_cord, int y_cord, int heading){
-    int theta = atan2(x_cord, y_cord)*360/(2*pi);
+    int theta = atan2((x_cord - current_x_pose()), (y_cord- current_y_pose()))*360/(2*pi);
 
-    if (!turn2(theta) && !first_turn){
+    if ((!turn2(theta)) && (!first_turn)){
         turn2(theta);
         delay(5);
         return 0;
     }
-
-    if ( (sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold )&& !first_turn){
+    if ((sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold ) && (!first_turn)){
         float delta_distance = (sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ));
-        motor_group_left.move(delta_distance * drive_p);
-        motor_group_right.move(delta_distance * drive_p);  
+        motor_group_left.move(127*pow(((delta_distance * drive_p)/drive_slowdown), 4));
+        motor_group_right.move(127*pow(((delta_distance * drive_p)/drive_slowdown), 4));  
         return 0;
     }
 
-        first_turn = 1;
+    first_turn = 1;
 
-    if (!turn2(heading)){
+    if (!turn2(heading) && first_turn){
         turn2(heading);
         return 0;
     }
 
-    else{
-        motor_group_left.move(0);
-        motor_group_right.move(0);
-        //first_turn = 0;
-        return 1;
- 
-    }
-    
+    motor_group_left.move(0);
+    motor_group_right.move(0);
+    return 1;
 }
 
 int turn(int angle){
