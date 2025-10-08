@@ -8,7 +8,7 @@ float ycurrent = 0; //inches
 float xcurrent = 0; //inches
 float previous = 0; //centidegrees
 int wheel_diameter = 2.625;
-float wheel_ratio = (wheel_diameter*std::numbers::pi)/36000;
+float wheel_ratio = 1.389*(wheel_diameter*std::numbers::pi)/36000;
 float angle_wheel_radius = 2.663;
 
 float wheel_angle(){

@@ -25,6 +25,8 @@ void initialize() {
 	imu_sensor.tare_heading();
 	rotation_sensor.reset_position();
 	rotation2_sensor.reset_position();
+	motor_group_left.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	motor_group_right.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 }
 
 /**
@@ -78,10 +80,10 @@ void opcontrol() {
     printf("imu_sensor is calibrating");
   	}
 	while (true) {
-
+		pros::lcd::print(5, "degrees %f", imu_sensor.get_heading());
 		//drive
-		//motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		//motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
+		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
+		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 
 		//intake
 		if (master.get_digital(DIGITAL_R1)) {
@@ -121,7 +123,8 @@ void opcontrol() {
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
 
 		trackposition();
-		//drive_cord(0,0,0);
+		//pros::lcd::print(1, "?%d",drive_cord(0,30,0));
+		pros::lcd::print(2, "y%f",current_y_pose());
 		auton1();
 		delay(100);
 	}

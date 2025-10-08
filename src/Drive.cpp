@@ -6,38 +6,53 @@
 #include "Odometry.h"
 double pi = 3.1415926535;
 
+int turning_threshold = 2;
+int turn_slowdown = 75;
+int turn_power = 7;
+int turn_voltage = 90;
+int turn_minimum = 20;
 
-float turn_p = 2.5;
-float turn_i = 1;
-float turning_threshold = 3;
+int drive_threshold = 1;
+int drive_slowdown = 5;
+int drive_power = 3;
+int drive_voltage = 127;
+int drive_minimum = 20;
 
-float drive_p = 5;
-float drive_slowdown = 5;
-float drive_threshold = 4;
 bool first_turn = 0;
+bool first_drive = 0;
 
 void first(bool input){
     first_turn = input;
+    first_drive = input;
 }
 int drive_cord(int x_cord, int y_cord, int heading){
     int theta = atan2((x_cord - current_x_pose()), (y_cord- current_y_pose()))*360/(2*pi);
 
-    if ((!turn2(theta)) && (!first_turn)){
-        turn2(theta);
+    if ((!turn(theta)) && (!first_turn)){
+        turn(theta);
         delay(5);
         return 0;
     }
-    if ((sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold ) && (!first_turn)){
+
+
+    if ((sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold ) && (!first_drive)){
+        
         float delta_distance = (sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ));
-        motor_group_left.move(127*pow(((delta_distance * drive_p)/drive_slowdown), 4));
-        motor_group_right.move(127*pow(((delta_distance * drive_p)/drive_slowdown), 4));  
+        float delta_angle = reduce_negative_180_to_180(theta-imu_sensor.get_heading());
+
+        float power = drive_voltage*pow((delta_distance/drive_slowdown), drive_power)+drive_minimum*abs(pow(delta_distance/drive_threshold,(1/drive_power)))*delta_distance/abs(delta_distance);
+        float turn_power = 0.000*turn_minimum*abs(pow(delta_angle/turning_threshold,(1/turn_power)))*delta_angle/abs(delta_angle);
+
+        motor_group_left.move(power);
+        motor_group_right.move(power);  
         return 0;
     }
 
     first_turn = 1;
+    first_drive = 1;
 
-    if (!turn2(heading) && first_turn){
-        turn2(heading);
+    if (!turn(heading) && first_turn){
+        turn(heading);
         return 0;
     }
 
@@ -47,35 +62,19 @@ int drive_cord(int x_cord, int y_cord, int heading){
 }
 
 int turn(int angle){
-    if (abs(angle-imu_sensor.get_heading())>turning_threshold){
-        float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
-        if(delta_angle < 0){
-            motor_group_right.move(-delta_angle * turn_p);
-            motor_group_left.move(delta_angle * turn_p);
-        }
-        if(delta_angle > 0){
-            motor_group_right.move(-delta_angle * turn_p);
-            motor_group_left.move(delta_angle * turn_p);
-        }
-        return 0;
-    }
-    else{
-        return 1;
-    }
-}
-
-int turn2(int angle){
     float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
-
+    
+    float power = turn_voltage*pow((delta_angle/turn_slowdown), turn_power)+turn_minimum*abs(pow(delta_angle/turning_threshold,(1/turn_power)))*delta_angle/abs(delta_angle);
+    
     if (abs(delta_angle)>turning_threshold){
-        pros::lcd::print(5, "ran");
-        motor_group_right.move(-delta_angle * turn_p);
-        motor_group_left.move(delta_angle * turn_p);
+        motor_group_right.move(-power);
+        motor_group_left.move(power);
 
         return 0;
     }
     else{
-        pros::lcd::print(6, "nope");
+        motor_group_right.move(0);
+        motor_group_left.move(0);
         return 1;
     }
 }

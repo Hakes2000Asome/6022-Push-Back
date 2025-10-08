@@ -6,12 +6,11 @@
 
 using namespace pros;
 
-float auton_1_cord[3][3] = 
+float auton_1_cord[2][3] = 
 {
     //x     y      heading
-    {10, 10, 45}, //0
-    {0, 0, 225}, //1
-    {5, 10, 180} //2
+    {0, 30, 270}, //0
+    {30, 35, 0}, //1
     
 };
 
