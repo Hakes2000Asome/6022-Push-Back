@@ -80,7 +80,17 @@ void opcontrol() {
     printf("imu_sensor is calibrating");
   	}
 	while (true) {
-		pros::lcd::print(5, "degrees %f", imu_sensor.get_heading());
+
+		pros::lcd::clear_line(0);
+		pros::lcd::clear_line(1);
+		pros::lcd::clear_line(2);
+		pros::lcd::clear_line(3);
+		pros::lcd::clear_line(4);
+		pros::lcd::print(0, "x: %f", current_x_pose());
+		pros::lcd::print(1, "y: %f", current_y_pose());
+ 		pros::lcd::print(3, "degrees %f", imu_sensor.get_heading());   
+  
+
 		//drive
 		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
 		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
@@ -123,8 +133,6 @@ void opcontrol() {
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
 
 		trackposition();
-		//pros::lcd::print(1, "?%d",drive_cord(0,30,0));
-		pros::lcd::print(2, "y%f",current_y_pose());
 		auton1();
 		delay(100);
 	}
