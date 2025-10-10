@@ -39,7 +39,7 @@ int drive_cord(int x_cord, int y_cord, int heading){
     if ((sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ) > drive_threshold ) && (!first_drive)){
         
         float delta_distance = (sqrt( pow((x_cord - current_x_pose()), 2) + pow((y_cord - current_y_pose()), 2) ));
-        float delta_angle = reduce_negative_180_to_180(theta-imu_sensor.get_heading());
+        float delta_angle = reduce_negative_180_to_180(theta-accurate_angle());
 
         float power = drive_voltage*pow((delta_distance/drive_slowdown), drive_power)+drive_minimum*abs(pow(delta_distance/drive_threshold,(1/drive_power)))*delta_distance/abs(delta_distance);
        float power_turn = turn_voltage*pow((delta_angle/turn_slowdown), turn_power)+turn_minimum*abs(pow(delta_angle/turning_threshold,(1/turn_power)))*delta_angle/abs(delta_angle);
@@ -79,7 +79,7 @@ int drive_cord(int x_cord, int y_cord, int heading){
 }
 
 int turn(int angle){
-    float delta_angle = reduce_negative_180_to_180(angle-imu_sensor.get_heading());
+    float delta_angle = reduce_negative_180_to_180(angle-accurate_angle());
     
     float power = turn_voltage*pow((delta_angle/turn_slowdown), turn_power)+turn_minimum*abs(pow(delta_angle/turning_threshold,(1/turn_power)))*delta_angle/abs(delta_angle);
     

@@ -9,25 +9,38 @@ using namespace pros;
 float auton_1_cord[][3] = 
 {
     //x     y      heading
-    {0, 30, 270}, //0
-    {30, 35, 0}, //1
+/*0*/    {48, 16.86-7.5, 180}, 
+/*1*/    {48, 0, 180}, 
+/*2*/    {48, 48, 0}, 
+/*3*/    {24, 40, 0}, 
+/*4*/    {24, 54, 0}, 
+/*5*/    {12, 60, 315}, 
+/*6*/    {-12, 48, 270},
+/*7*/    {-24, 48, 45},
+/*8*/    {-12, 12, 45}
     
+
 };
 
 int num = 0;
 
 void auton1(){
     if (1){
+        pros::lcd::print(4, "num: %d", num);
+
         if (num == sizeof(auton_1_cord)/sizeof(auton_1_cord[0])){
             return;
         }
-        pros::lcd::print(4, "num: %d", num);
-        trackposition();
 
         //add all actions that happen at a point here - will happen the second it is done with the number before
-        if (num == 1){
+        if (num == 1 /*color senser*/){
             intake.move(-127);
+            return;
         }
+        if (num == 1){
+            in
+        }
+
 
         if (!drive_cord(auton_1_cord[num][0], auton_1_cord[num][1], auton_1_cord[num][2])){
             drive_cord(auton_1_cord[num][0], auton_1_cord[num][1], auton_1_cord[num][2]);
