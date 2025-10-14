@@ -59,10 +59,10 @@ int drive_cord(int x_cord, int y_cord, int heading){
         pros::lcd::clear_line(5);
 		pros::lcd::clear_line(6);
         pros::lcd::print(5, "power %f", power);
-        pros::lcd::print(6, "turn power %f", turn_power);
+        pros::lcd::print(6, "turn power %f", power_turn);
 
-        motor_group_left.move(power+turn_power);
-        motor_group_right.move(power-turn_power);  
+        motor_group_left.move(power+power_turn);
+        motor_group_right.move(power-power_turn);  
         return 0;
     }
 
