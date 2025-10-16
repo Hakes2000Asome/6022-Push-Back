@@ -6,6 +6,7 @@
 #include "Drive.h"
 #include "auton.h"
 
+
 using namespace pros;
 
 
@@ -79,6 +80,9 @@ void opcontrol() {
 	while(imu_sensor.is_calibrating() == 1){
     printf("sensor is calibrating");
   	}
+
+	//base_color();
+
 	while (true) {
 
 		pros::lcd::clear_line(0);
@@ -88,12 +92,13 @@ void opcontrol() {
 		pros::lcd::clear_line(4);
 		pros::lcd::print(0, "x: %f", current_x_pose());
 		pros::lcd::print(1, "y: %f", current_y_pose());
- 		pros::lcd::print(3, "degrees %f", accurate_angle());   
+ 		pros::lcd::print(2, "degrees %f", accurate_angle());   
+		pros::lcd::print(3, "color %d", color());   
   
 
 		//drive
-		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
+		//motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
+		//motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 
 		//intake
 		if (master.get_digital(DIGITAL_R2)) {
@@ -133,7 +138,8 @@ void opcontrol() {
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
 
         trackposition();
-		auton1();
+		auton_red();
 		delay(100);
+		//moveBack(-12, -12, 45);
 	}
 }

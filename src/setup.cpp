@@ -12,7 +12,7 @@ MotorGroup motor_group_right ({14, 15, 16}, pros::v5::MotorGears::blue);
 Motor motor_front_left (1);
 Motor motor_middle_left (12);
 Motor motor_back_left (13);
-MotorGroup motor_group_left({-11, -12, -13}, pros::v5::MotorGears::blue);
+MotorGroup motor_group_left({-1, -12, -13}, pros::v5::MotorGears::blue);
  
 //inertial sensor
 Imu imu_sensor(21);
@@ -31,3 +31,6 @@ Motor top(10);
 
 //air
 ADIDigitalOut piston (8);
+
+//color sensor
+Optical optical_sensor (4);

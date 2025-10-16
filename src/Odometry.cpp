@@ -4,8 +4,8 @@
 #include "main.h"
 #include "funtions.h"
 
-float ycurrent = 9.435 + 8; //inches
-float xcurrent = 16.86-7.5; //inches
+float xcurrent = 10 + 8; //inches
+float ycurrent = 16.86; //inches
 float previous = 0; //centidegrees
 int wheel_diameter = 2.625;
 float wheel_ratio = 1.389*(wheel_diameter*std::numbers::pi)/36000;

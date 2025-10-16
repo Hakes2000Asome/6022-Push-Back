@@ -1,2 +1,2 @@
-void auton1();
+void auton_red();
 void auton_test();

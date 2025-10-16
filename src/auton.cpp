@@ -3,16 +3,44 @@
 #include "api.h"
 #include "Odometry.h"
 #include "setup.h"
+#include "funtions.h"
 
 using namespace pros;
 
-float auton_1_cord[][3] = 
+bool task1 = 0;
+bool task2 = 0;
+bool task3 = 0;
+bool task4 = 0;
+bool task5 = 0;
+bool task6 = 0;
+bool task7 = 0;
+bool task8 = 0;
+bool task9 = 0;
+bool task10 = 0;
+bool task11 = 0;
+bool task12 = 0;
+bool task13 = 0;
+bool task14 = 0;
+bool task15 = 0;
+bool task16 = 0;
+bool task17 = 0;
+bool task18 = 0;
+bool task19 = 0;
+bool task20 = 0;
+bool task21 = 0;
+bool task22 = 0;
+bool task23 = 0;
+bool task24 = 0;
+bool task25 = 0;
+
+float auton_red_cord[][3] = 
 {
     //x     y      heading
-/*0*/    {48, 16.86-7.5, 180}, // first position
-/*1*/    {48, 0, 180},  //moving towards the loader
+/*0*/    {48, 28, 180}, // first position
+
+/*1*/    {48, 9.45, 180},  //moving towards the loader
 //needs to back up 
-/*2*/    {48, 48, 0}, //Scoring top 4x
+/*2*/    {47.5, 36, 0}, //Scoring top 4x
 //needs to back up
 /*3*/    {24, 40, 0}, //get to the position before rotating to get the next two pieces in the middle
 /*4*/    {24, 54, 0}, //get the two pieces
@@ -26,94 +54,124 @@ float auton_1_cord[][3] =
 
 int num = 0;
 
-void auton1(){
+void auton_red(){
     if (1){
+        pros::lcd::clear_line(4);
         pros::lcd::print(4, "num: %d", num);
         //add all actions that happen at a point here - will happen the second it is done with the number before
-        if (num == 2 /*&& Color sensor detects our color*/){
-            intake.move(-127);  //in
-            storage.move(127);  //in
-            return;
+        if (num == 1 && !task1){
+            piston.set_value(true); //down
+            task1 = 1;
         }
-        if (num == 2 /*&& color sensor detects other color*/){
-            intake.move(0); 
-            storage.move(0);
-            delay(10);
-            //back up 6 in
-            if (!moveBack(48, 6)){
-                moveBack(48, 6);
+
+        if (num == 2 && !task2){
+            intake.move(-127);  //in
+            storage.move(-127);  //in
+            if (!(color() == 2)){
+                delay(20);
                 return;
             }
-        }
-
-
-        if (num == 3 /*&& not all pieces have been scored*/){
-			intake.move(-127);	//in
-			storage.move(127);	//out
-			top.move(127);		//middle
+            task2 = 1;
             return;
         }
-        if (num == 3 /*&& ALL pieces have been scored*/){
+        if (num == 2 && !task3){
+            intake.move(127); //out
+            storage.move(0);
+            //back up 12 in
+            /*if (!moveBack(48, 12, 0)){
+                moveBack(48, 12, 0);
+                return;
+            }*/
+            motor_group_left.move(-50); 
+            motor_group_right.move(-50); 
+            delay(250);
+            motor_group_left.move(0); 
+            motor_group_right.move(0); 
+            task3 = 1;
+            return;
+        }
+        if (num == 2){
+            piston.set_value(false); //up
+        }
+
+        if (num == 3 && !task4){
+			intake.move(-127);	//in
+			storage.move(127);	//out
+			top.move(-127);		//top
+            float time = millis();
+            while ((millis()-time) < 1000){
+                return;
+            }
+            !task4;
+            return;
+        }
+
+        if (num == 3 && !task5){
 			intake.move(0);	    //in
 			storage.move(0);	//out
 			top.move(0);		//middle
-            delay(0);
             //back up 6 in
-            if (!moveBack(48, 42)){
-                moveBack(48,42);
+            if (!moveBack(48, 42, 0)){
+                moveBack(48,42, 0);
                 return;
             }
+            !task5;
+            return;
         } 
 
-
-        if (num == 4){
+        if (num == 4 && !task6){
             intake.move(-127); //in
             storage.move(127); //in
-        }
-
-
-        if (num == 6 /*&& not all pieces have been scored*/){
-            intake.move(127);	//out
-			storage.move(127);	//out
+            !task6;
             return;
         }
-        if (num == 6 /*&& ALL pieces have been scored*/){
-			intake.move(0);	    //in
-			storage.move(0);	//out
-            delay(0);
-            //back up 6 in
-            if (!moveBack(16, 56)){
-                moveBack(16, 56);
+
+
+        if (num == 6 && !task7){
+            intake.move(127);	//out
+			storage.move(127);	//out
+            float time = millis();
+            while ((millis()-time) < 1000){
                 return;
             }
-        }
-
-
-        if (num == 7){
-            intake.move(-127); //in
-            storage.move(127); //in
-        }
-
-
-        if (num == 9 /*&& not all pieces have been scored*/){
-            intake.move(127);	//out
-			storage.move(127);	//out
+            !task7;
             return;
         }
-        if (num == 9 /*&& ALL pieces have been scored*/){
+
+        if (num == 6 && !task8){
 			intake.move(0);	    //in
 			storage.move(0);	//out
-            delay(0);
             //back up 6 in
-        }
-        if (num == sizeof(auton_1_cord)/sizeof(auton_1_cord[0])){
-            //completed
-            //DOESN'T IT NEED TO RETURN TO ORIGINAL LOCATION???
+            if (!moveBack(16, 56, 315)){
+                moveBack(16, 56, 315);
+                return;
+            }
+            !task8;
             return;
         }
 
-        if (!drive_cord(auton_1_cord[num][0], auton_1_cord[num][1], auton_1_cord[num][2])){
-            drive_cord(auton_1_cord[num][0], auton_1_cord[num][1], auton_1_cord[num][2]);
+
+        if (num == 7 && !task9){
+            intake.move(-127); //in
+            storage.move(127); //in
+            !task9;
+            return;
+        }
+
+
+        if (num == 9 && !task10){
+            intake.move(127);	//out
+			storage.move(127);	//out
+            !task10;
+            return;
+        }
+
+        if (num == sizeof(auton_red_cord)/sizeof(auton_red_cord[0])){
+            return;
+        }
+
+        if (!drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2])){
+            drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2]);
            return;
         } 
         num ++;

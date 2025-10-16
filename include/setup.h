@@ -31,3 +31,6 @@ using namespace pros;
     //air
     extern ADIDigitalOut piston;
 
+    //color sensor
+    extern Optical optical_sensor;
+
