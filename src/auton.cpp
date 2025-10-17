@@ -38,11 +38,11 @@ float auton_red_cord[][3] =
     //x     y      heading
 /*0*/    {48, 28, 180}, // first position
 
-/*1*/    {48, 9.45, 180},  //moving towards the loader
+/*1*/    {48, 11.2, 180},  //moving towards the loader
 //needs to back up 
 /*2*/    {47.5, 36, 0}, //Scoring top 4x
 //needs to back up
-/*3*/    {24, 40, 0}, //get to the position before rotating to get the next two pieces in the middle
+/*3*/    {24, 43, 0}, //get to the position before rotating to get the next two pieces in the middle
 /*4*/    {24, 54, 0}, //get the two pieces
 /*5*/    {12, 60, 315}, //scoring in the bottom 2x 
 //needs to back up
@@ -59,6 +59,13 @@ void auton_red(){
         pros::lcd::clear_line(4);
         pros::lcd::print(4, "num: %d", num);
         //add all actions that happen at a point here - will happen the second it is done with the number before
+        // if (num == 0){
+        //     motor_group_left.move(25); 
+        //     motor_group_right.move(25);
+        //     delay(50);
+        //     motor_group_left.move(0); 
+        //     motor_group_right.move(0);
+        // }
         if (num == 1 && !task1){
             piston.set_value(true); //down
             task1 = 1;
@@ -91,18 +98,18 @@ void auton_red(){
             return;
         }
         if (num == 2){
+            delay(50);
             piston.set_value(false); //up
         }
-
         if (num == 3 && !task4){
 			intake.move(-127);	//in
 			storage.move(127);	//out
 			top.move(-127);		//top
             float time = millis();
-            while ((millis()-time) < 1000){
-                return;
+            while ((millis()-time) < 500){
+                int filler = 1;
             }
-            !task4;
+            task4 = 1;
             return;
         }
 
@@ -111,18 +118,23 @@ void auton_red(){
 			storage.move(0);	//out
 			top.move(0);		//middle
             //back up 6 in
-            if (!moveBack(48, 42, 0)){
-                moveBack(48,42, 0);
-                return;
-            }
-            !task5;
+            // if (!moveBack(48, 42, 0)){
+            //     moveBack(48,42, 0);
+            //     return;
+            // }
+            motor_group_left.move(-50); 
+            motor_group_right.move(-50); 
+            delay(250);
+            motor_group_left.move(0); 
+            motor_group_right.move(0); 
+            task5 = 1;
             return;
         } 
 
         if (num == 4 && !task6){
             intake.move(-127); //in
             storage.move(127); //in
-            !task6;
+            task6 = 1;
             return;
         }
 
@@ -132,9 +144,9 @@ void auton_red(){
 			storage.move(127);	//out
             float time = millis();
             while ((millis()-time) < 1000){
-                return;
+                int filler2 = 1;
             }
-            !task7;
+            task7 = 1;
             return;
         }
 
@@ -142,11 +154,16 @@ void auton_red(){
 			intake.move(0);	    //in
 			storage.move(0);	//out
             //back up 6 in
-            if (!moveBack(16, 56, 315)){
-                moveBack(16, 56, 315);
-                return;
-            }
-            !task8;
+            // if (!moveBack(16, 56, 315)){
+            //     moveBack(16, 56, 315);
+            //     return;
+            // }
+            motor_group_left.move(-50); 
+            motor_group_right.move(-50); 
+            delay(250);
+            motor_group_left.move(0); 
+            motor_group_right.move(0); 
+            task8 = 1;
             return;
         }
 
@@ -154,7 +171,7 @@ void auton_red(){
         if (num == 7 && !task9){
             intake.move(-127); //in
             storage.move(127); //in
-            !task9;
+            task9 = 1;
             return;
         }
 
@@ -162,7 +179,7 @@ void auton_red(){
         if (num == 9 && !task10){
             intake.move(127);	//out
 			storage.move(127);	//out
-            !task10;
+            task10 = 1;
             return;
         }
 
@@ -172,8 +189,8 @@ void auton_red(){
 
         if (!drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2])){
             drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2]);
-           return;
-        } 
+            return;
+        }
         num ++;
         first(0);
     }  
