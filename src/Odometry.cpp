@@ -4,7 +4,7 @@
 #include "main.h"
 #include "funtions.h"
 
-float xcurrent = 10 + 8; //inches
+float xcurrent = 13 + 8; //inches
 float ycurrent = 16.86; //inches
 float previous = 0; //centidegrees
 int wheel_diameter = 2.625;

@@ -59,7 +59,14 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	while(1){
+	auton_red();
+	trackposition();
+	delay(100);
+
+	}
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -76,7 +83,6 @@ void autonomous() {}
  */
 void opcontrol() {
 
-	
 	while(imu_sensor.is_calibrating() == 1){
     printf("sensor is calibrating");
   	}
@@ -97,8 +103,8 @@ void opcontrol() {
   
 
 		//drive
-		//motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		//motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
+		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
+		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 
 		//intake
 		if (master.get_digital(DIGITAL_R2)) {
@@ -138,8 +144,7 @@ void opcontrol() {
 		float wheel_ratio = (wheel_diameter*3.14159)/36000;
 
         trackposition();
-		auton_red();
 		delay(100);
-		//moveBack(-12, -12, 45);
+
 	}
 }

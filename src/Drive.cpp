@@ -12,10 +12,10 @@ int turn_power = 7;
 int turn_voltage = 90;
 int turn_minimum = 20;
 
-int drive_threshold = 2;
-int drive_slowdown = 20;
+int drive_threshold = 3;
+int drive_slowdown = 15;
 int drive_power = 3;
-int drive_voltage = 20;
+int drive_voltage = 30;
 int drive_minimum = 20;
 
 bool first_turn = 0;
@@ -62,8 +62,8 @@ int drive_cord(float x_cord, float y_cord, float heading){
         pros::lcd::print(5, "power %f", power);
         pros::lcd::print(6, "turn power %f", power_turn);
 
-        motor_group_left.move(power+power_turn);
-        motor_group_right.move(power-power_turn);  
+        motor_group_left.move(power+0.75*power_turn);
+        motor_group_right.move(power-0.75*power_turn);  
         return 0;
     }
 
@@ -129,8 +129,8 @@ bool moveBack(float x_cord, float y_cord, float heading){
         if (power_turn <= -127){
             power_turn = -127;
         }
-        motor_group_left.move(-power-power_turn); 
-        motor_group_right.move(-power+power_turn);
+        motor_group_left.move(-power-0.75*power_turn); 
+        motor_group_right.move(-power+0.75*power_turn);
         return 0;
     }
 
