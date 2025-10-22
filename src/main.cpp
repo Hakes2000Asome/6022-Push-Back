@@ -5,6 +5,8 @@
 #include "funtions.h"
 #include "Drive.h"
 #include "auton.h"
+#include "PID.h"
+
 
 
 using namespace pros;
@@ -103,9 +105,9 @@ void opcontrol() {
   
 
 		//drive
-		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
-
+		turn(90);
+		//motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
+		//motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
 		//intake
 		if (master.get_digital(DIGITAL_R2)) {
 			intake.move(127); 	//out
