@@ -24,8 +24,9 @@ void initialize() {
 	imu_sensor.reset();
     pros::lcd::initialize();
 	imu_sensor.tare_heading();
-	rotation_sensor.reset_position();
-	rotation2_sensor.reset_position();
+	l_rotation_sensor.reset_position();
+	r_rotation_sensor.reset_position();
+	s_rotation_sensor.reset_position();
 	motor_group_left.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	motor_group_right.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 }
@@ -62,8 +63,15 @@ void competition_initialize() {}
 void autonomous() {
 	while(1){
 	auton_red();
-	trackposition();
 	delay(100);
+	
+/*
+	motor_group_left.move(127); 
+    motor_group_right.move(127); 
+    delay(250);
+    motor_group_left.move(0); 
+    motor_group_right.move(0); 
+	*/
 
 	}
 }
@@ -103,8 +111,8 @@ void opcontrol() {
   
 
 		//drive
-		motor_group_right.move(master.get_analog(ANALOG_RIGHT_Y));
-		motor_group_left.move(master.get_analog(ANALOG_LEFT_Y));
+		motor_group_right.move(pow(master.get_analog(ANALOG_RIGHT_Y), 2)/127 *master.get_analog(ANALOG_RIGHT_Y)/abs(master.get_analog(ANALOG_RIGHT_Y)));
+		motor_group_left.move(pow(master.get_analog(ANALOG_LEFT_Y), 2)/127 *master.get_analog(ANALOG_LEFT_Y)/abs(master.get_analog(ANALOG_LEFT_Y)));
 
 		//intake
 		if (master.get_digital(DIGITAL_R2)) {
@@ -121,7 +129,7 @@ void opcontrol() {
 			top.move(-127);		//top
 		}
 		else if (master.get_digital(DIGITAL_L2)){
-			intake.move(-127);	//in
+			intake.move(-110);	//in
 			storage.move(127);	//out
 			top.move(127);		//middle
 		}

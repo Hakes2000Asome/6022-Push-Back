@@ -83,7 +83,8 @@ int turn(float angle){
     float delta_angle = reduce_negative_180_to_180(angle-accurate_angle());
     
     float power = turn_voltage*pow((delta_angle/turn_slowdown), turn_power)+turn_minimum*abs(pow(delta_angle/turning_threshold,(1/turn_power)))*delta_angle/abs(delta_angle);
-    
+
+
     if (abs(delta_angle)>turning_threshold){
         motor_group_right.move(-power);
         motor_group_left.move(power);

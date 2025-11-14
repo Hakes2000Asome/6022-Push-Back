@@ -37,11 +37,11 @@ bool task25 = 0;
 float auton_red_cord[][3] = 
 {
     //x     y      heading
-/*1*/    {48, 18, 180}, // first position
+/*1*/    {44, 18, 180}, // first position
 
-/*2*/    {49.5, 14, 176},  //moving towards the loader
+/*2*/    {49, 15, 179},  //moving towards the loader
 //needs to back up 
-/*3*/    {51, 32, 0}, //Scoring top 4x
+/*3*/    {50.8, 32, 0}, //Scoring top 4x
 //needs to back up
 /*4*/    {28, 32, 0}, //get to the position before rotating to get the next two pieces in the middle
 /*5*/    {28, 54, 0}, //get the two pieces
@@ -59,14 +59,6 @@ void auton_red(){
     if (1){
         pros::lcd::clear_line(4);
         pros::lcd::print(4, "num: %d", num);
-        //add all actions that happen at a point here - will happen the second it is done with the number before
-        // if (num == 0){
-        //     motor_group_left.move(25); 
-        //     motor_group_right.move(25);
-        //     delay(50);
-        //     motor_group_left.move(0); 
-        //     motor_group_right.move(0);
-        // }
 
         if (num == 1 && !task1){
             piston.set_value(true); //down
@@ -83,7 +75,7 @@ void auton_red(){
             delay(50);
             motor_group_left.move(0); 
             motor_group_right.move(0); 
-            if (!(color() == 2)){
+            if (!(color() == 2) && millis() < 5000){
                 return;
             }
             task2 = 1;
@@ -197,5 +189,26 @@ void auton_red(){
         num ++;
         first(0);
     }  
+}
 
+float auton_test_cord[][3] = 
+{
+    //x     y      heading
+/*1*/       {0, 30, 0}, // first position
+/*2*/       {30,}
+/*10*/
+    
+};
+
+void auton_test(){
+    if (num == sizeof(auton_red_cord)/sizeof(auton_red_cord[0])){
+            return;
+        }
+
+        if (!drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2])){
+            drive_cord(auton_red_cord[num][0], auton_red_cord[num][1], auton_red_cord[num][2]);
+            return;
+        }
+        num ++;
+        first(0);
 }

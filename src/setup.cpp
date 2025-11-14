@@ -21,8 +21,9 @@ Imu imu_sensor(21);
 Controller master (E_CONTROLLER_MASTER);
 
 //rotation sensor
-Rotation rotation_sensor(2);
-Rotation rotation2_sensor(3);
+Rotation r_rotation_sensor(2);
+Rotation l_rotation_sensor(3);
+Rotation s_rotation_sensor(5);
 
 //intakae motor
 Motor intake(9);

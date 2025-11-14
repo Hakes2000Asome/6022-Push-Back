@@ -20,8 +20,9 @@ using namespace pros;
     extern Controller master;
 
     //rotation sensor
-    extern Rotation rotation_sensor;
-    extern Rotation rotation2_sensor;
+    extern Rotation r_rotation_sensor;
+    extern Rotation l_rotation_sensor;
+    extern Rotation s_rotation_sensor;
 
     //intakae motor
     extern Motor intake;

@@ -14,6 +14,7 @@ float reduce_negative_180_to_180(float angle) {
   return(angle);
 }
 
+
 float reduce_0_to_360(float angle) {
   while(!(angle >= 0 && angle < 360)) {
     if( angle < 0 ) { angle += 360; }
@@ -21,7 +22,6 @@ float reduce_0_to_360(float angle) {
   }
   return(angle);
 }
-
 
 
 float base_red;
@@ -49,7 +49,7 @@ int color(){
  	pros::lcd::print(7, "blue %lf \n", rgb_value.blue); 
   
 
-  if (rgb_value.red > 0.85*(rgb_value.green+rgb_value.blue)){
+  if (rgb_value.red > 0.84*(rgb_value.green+rgb_value.blue)){
     return 1;
   }
   if (rgb_value.blue > 0.4*(rgb_value.green+rgb_value.red)){
