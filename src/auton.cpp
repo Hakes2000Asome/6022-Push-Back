@@ -54,7 +54,7 @@ float auton_red_cord[][3] =
 };
 
 int num = 0;
-
+/*
 void auton_red(){
     if (1){
         pros::lcd::clear_line(4);
@@ -88,7 +88,7 @@ void auton_red(){
             /*if (!moveBack(48, 12, 0)){
                 moveBack(48, 12, 0);
                 return;
-            }*/
+            }
             motor_group_left.move(-127); 
             motor_group_right.move(-127); 
             delay(125);
@@ -189,7 +189,7 @@ void auton_red(){
         num ++;
         first(0);
     }  
-}
+}*/
 
 float auton_test_cord[][3] = 
 {

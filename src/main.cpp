@@ -119,29 +119,24 @@ void opcontrol() {
 		//intake
 		if (master.get_digital(DIGITAL_R2)) {
 			intake.move(127); 	//out
-			storage.move(127);	//out
 		} 
 		else if (master.get_digital(DIGITAL_R1)) {
 			intake.move(-127);	//in
-			storage.move(-127);	//in
 		} 
-		else if (master.get_digital(DIGITAL_L1)) {
-			intake.move(-127);	//in
-			storage.move(127);	//out
-			top.move(-127);		//top
+		else{
+			intake.move(0);
+		}
+		if (master.get_digital(DIGITAL_L1)) {
+			railgun.move(127);	//out
 		}
 		else if (master.get_digital(DIGITAL_L2)){
-			intake.move(-110);	//in
-			storage.move(127);	//out
-			top.move(127);		//middle
+			railgun.move(-127);	//in
 		}
 		else {
-			intake.move(0);  
-			storage.move(0);
-			top.move(0);
+			railgun.move(0);
 		}
  
-		//ball remover
+		//railgun height
 		if (master.get_digital(DIGITAL_Y)) {
 			piston.set_value(true);  //down 
 		} 

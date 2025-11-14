@@ -26,8 +26,7 @@ using namespace pros;
 
     //intakae motor
     extern Motor intake;
-    extern Motor storage;
-    extern Motor top;
+    extern Motor railgun;
 
     //air
     extern ADIDigitalOut piston;
