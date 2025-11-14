@@ -5,6 +5,8 @@
 #include "funtions.h"
 #include "Drive.h"
 #include "auton.h"
+#include "PID.h"
+
 
 
 using namespace pros;
